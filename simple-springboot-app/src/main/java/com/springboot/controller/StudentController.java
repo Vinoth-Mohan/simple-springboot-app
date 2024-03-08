@@ -17,6 +17,9 @@ public class StudentController {
 	@PostMapping
 	public String saveStudentInformation(@RequestHeader("student-auth-key") String authorization,
 			@RequestBody Student student) {
+		if (StringUtils.isBlank(student.getFirstName())) {
+			throw new InvalidFieldException("First Name is a required filed");
+		}
 		if (StringUtils.isBlank(student.getLastName())) {
 			throw new InvalidFieldException("Last Name is a required field");
 		}
